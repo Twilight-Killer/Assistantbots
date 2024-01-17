@@ -38,7 +38,7 @@ __HELP__ = "/detect_gay - To Choose Couple Of The Day"
 # Date and time
 def dt():
     # Set the timezone to Indian Standard Time
-    ist_timezone = pytz.timezone("Asia/Kolkata")
+    ist_timezone = pytz.timezone("Asia/Jakarta")
 
     # Get the current time in IST
     ist_now = datetime.now(ist_timezone)
@@ -93,10 +93,10 @@ async def couple(_, message):
             c1_mention = (await app.get_users(c1_id)).mention
             c2_mention = (await app.get_users(c2_id)).mention
 
-            couple_selection_message = f"""**Couple of the day:**
+            couple_selection_message = f"""**Pasangan hari ini:**
 {c1_mention} + {c2_mention} = ❤️
 
-__New couple of the day may be chosen at 12AM {tomorrow()}__"""
+__Pasangan baru akan di pilih besok {tomorrow()}__"""
             await m.edit(couple_selection_message)
             couple = {"c1_id": c1_id, "c2_id": c2_id}
             await save_couple(chat_id, today(), couple)
@@ -106,10 +106,10 @@ __New couple of the day may be chosen at 12AM {tomorrow()}__"""
             c2_id = int(is_selected["c2_id"])
             c1_name = (await app.get_users(c1_id)).first_name
             c2_name = (await app.get_users(c2_id)).first_name
-            couple_selection_message = f"""Couple of the day:
+            couple_selection_message = f"""Pasangan hari ini:
 [{c1_name}](tg://openmessage?user_id={c1_id}) + [{c2_name}](tg://openmessage?user_id={c2_id}) = ❤️
 
-__New couple of the day may be chosen at 12AM {tomorrow()}__"""
+__Pasangan baru akan di pilih besok {tomorrow()}__"""
             await m.edit(couple_selection_message)
     except Exception as e:
         print(e)
