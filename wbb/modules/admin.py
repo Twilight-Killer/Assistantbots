@@ -695,7 +695,7 @@ async def warn_user(_, message: Message):
         get_warn(chat_id, await int_to_alpha(user_id)),
     )
     mention = user.mention
-    keyboard = ikb({"Remove Warn": f"unwarn_{user_id}"})
+    keyboard = ikb({"⚠️ Remove Warn ⚠️": f"unwarn_{user_id}"})
     if warns:
         warns = warns["warns"]
     else:
