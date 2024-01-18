@@ -147,7 +147,7 @@ if USERBOT_ID not in SUDOERS:
     SUDOERS.add(USERBOT_ID)
 
 log.info("Initializing Telegraph client")
-telegraph = Telegraph(domain="graph.org")
+telegraph = Telegraph(domain="telegra.ph")
 telegraph.create_account(short_name=BOT_USERNAME)
 
 
