@@ -124,27 +124,7 @@ home_keyboard_pm = InlineKeyboardMarkup(
     ]
 )
 
-keyboard = InlineKeyboardMarkup(
-    [
-        [
-            InlineKeyboardButton(
-                text="Help ❓",
-                url=f"t.me/{BOT_USERNAME}?start=help",
-            ),
-            InlineKeyboardButton(
-                text="Dev 🛠",
-                url="https://t.me/DarkiezZzz",
-            ),
-        ],
-        [
-            InlineKeyboardButton(
-                text="System Stats 💻",
-                callback_data="stats_callback",
-            ),
-            InlineKeyboardButton(text="Support ✨", url="t.me/HaoTogelLivedraw"),
-        ],
-    ]
-)
+keyboard = None
 
 
 FED_MARKUP = InlineKeyboardMarkup(
@@ -258,14 +238,6 @@ async def help_command(_, message):
                     f"Click on the below button to get help about {name}",
                     reply_markup=key,
                 )
-            else:
-                await message.reply(
-                    "PM Me For More Details.", reply_markup=keyboard
-                )
-        else:
-            await message.reply(
-                "Pm Me For More Details.", reply_markup=keyboard
-            )
     else:
         if len(message.command) >= 2:
             name = (message.text.split(None, 1)[1]).replace(" ", "_").lower()
