@@ -80,7 +80,7 @@ async def start_bot():
             bot_modules += "|{:<15}".format(i)
         j += 1
     print("+===============================================================+")
-    print("|                          Kimochi                              |")
+    print("|                              WBB                              |")
     print("+===============+===============+===============+===============+")
     print(bot_modules)
     print("+===============+===============+===============+===============+")
@@ -118,13 +118,58 @@ home_keyboard_pm = InlineKeyboardMarkup(
     [
         [
             InlineKeyboardButton(
-                text="Commands", callback_data="bot_commands"
+                text="Commands ❓", callback_data="bot_commands"
             ),
+            InlineKeyboardButton(
+                text="Repo 🛠",
+                url="https://github.com/thehamkercat/WilliamButcherBot",
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                text="System Stats 🖥",
+                callback_data="stats_callback",
+            ),
+            InlineKeyboardButton(
+                text="Support 👨", url="http://t.me/WBBSupport"
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                text="Add Me To Your Group 🎉",
+                url=f"http://t.me/{BOT_USERNAME}?startgroup=new",
+            )
         ],
     ]
 )
 
-keyboard = None
+home_text_pm = (
+    f"Hey there! My name is {BOT_NAME}. I can manage your "
+    + "group with lots of useful features, feel free to "
+    + "add me to your group."
+)
+
+keyboard = InlineKeyboardMarkup(
+    [
+        [
+            InlineKeyboardButton(
+                text="Help ❓",
+                url=f"t.me/{BOT_USERNAME}?start=help",
+            ),
+            InlineKeyboardButton(
+                text="Repo 🛠",
+                url="https://github.com/thehamkercat/WilliamButcherBot",
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                text="System Stats 💻",
+                callback_data="stats_callback",
+            ),
+            InlineKeyboardButton(text="Support 👨", url="t.me/WBBSupport"),
+        ],
+    ]
+)
 
 
 FED_MARKUP = InlineKeyboardMarkup(
@@ -238,6 +283,14 @@ async def help_command(_, message):
                     f"Click on the below button to get help about {name}",
                     reply_markup=key,
                 )
+            else:
+                await message.reply(
+                    "PM Me For More Details.", reply_markup=keyboard
+                )
+        else:
+            await message.reply(
+                "Pm Me For More Details.", reply_markup=keyboard
+            )
     else:
         if len(message.command) >= 2:
             name = (message.text.split(None, 1)[1]).replace(" ", "_").lower()
