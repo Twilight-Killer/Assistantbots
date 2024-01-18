@@ -244,14 +244,7 @@ async def help_command(_, message):
                     f"Click on the below button to get help about {name}",
                     reply_markup=key,
                 )
-            else:
-                await message.reply(
-                    "PM Me For More Details.", reply_markup=keyboard
-                )
-        else:
-            await message.reply(
-                "Pm Me For More Details.", reply_markup=keyboard
-            )
+
     else:
         if len(message.command) >= 2:
             name = (message.text.split(None, 1)[1]).replace(" ", "_").lower()
