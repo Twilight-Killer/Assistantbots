@@ -130,27 +130,7 @@ home_text_pm = (
     + "add me to your group."
 )
 
-keyboard = InlineKeyboardMarkup(
-    [
-        [
-            InlineKeyboardButton(
-                text="Help ❓",
-                url=f"t.me/{BOT_USERNAME}?start=help",
-            ),
-            InlineKeyboardButton(
-                text="Repo 🛠",
-                url="https://github.com/thehamkercat/WilliamButcherBot",
-            ),
-        ],
-        [
-            InlineKeyboardButton(
-                text="System Stats 💻",
-                callback_data="stats_callback",
-            ),
-            InlineKeyboardButton(text="Support 👨", url="t.me/WBBSupport"),
-        ],
-    ]
-)
+keyboard = None
 
 
 FED_MARKUP = InlineKeyboardMarkup(
