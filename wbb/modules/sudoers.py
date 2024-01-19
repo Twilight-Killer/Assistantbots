@@ -165,9 +165,9 @@ __**New Global Banned**__
         )
     try:
         await message.reply_to_message.delete()
-        await message.delete()
     except:
         pass
+    await message.delete()
 
 
 # Ungban
@@ -189,9 +189,9 @@ async def unban_globally(_, message):
         await message.reply_text(f"Lifted {user.mention}'s Global Banned.'")
     try:
         await message.reply_to_message.delete()
-        await message.delete()
     except:
         pass
+    await message.delete()
 
 # Broadcast
 
