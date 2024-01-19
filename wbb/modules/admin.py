@@ -233,9 +233,9 @@ async def kickFunc(_, message: Message):
     await message.chat.unban_member(user_id)
     try:
         await message.reply_to_message.delete()
-        await message.delete()
     except:
         pass
+    await message.delete()
 
 
 # Ban members
@@ -303,9 +303,9 @@ async def banFunc(_, message: Message):
     await message.reply_text(msg)
     try:
         await message.reply_to_message.delete()
-        await message.delete()
     except:
         pass
+    await message.delete()
 
 
 # Unban members
@@ -339,9 +339,9 @@ async def unban_func(_, message: Message):
     await message.reply_text(f"Fine, {umention} they can join again.")
     try:
         await message.reply_to_message.delete()
-        await message.delete()
     except:
         pass
+    await message.delete()
 
 
 # Ban users listed in a message
@@ -643,9 +643,9 @@ async def mute(_, message: Message):
     await message.reply_text(msg, reply_markup=keyboard)
     try:
         await message.reply_to_message.delete()
-        await message.delete()
     except:
         pass
+    await message.delete()
 
 
 # Unmute members
@@ -665,9 +665,9 @@ async def unmute(_, message: Message):
     await message.reply_text(f"Fine, {umention} can speak again.")
     try:
         await message.reply_to_message.delete()
-        await message.delete()
     except:
         pass
+    await message.delete()
 
 
 # Ban deleted accounts
@@ -747,9 +747,9 @@ async def warn_user(_, message: Message):
         await add_warn(chat_id, await int_to_alpha(user_id), warn)
         try:
             await message.reply_to_message.delete()
-            await message.delete()
         except:
             pass
+        await message.delete()
 
 
 @app.on_callback_query(filters.regex("unwarn_"))
@@ -799,6 +799,11 @@ async def remove_warnings(_, message: Message):
     else:
         await remove_warns(chat_id, await int_to_alpha(user_id))
         await message.reply_text(f"Removed warnings of {mention}.")
+    try:
+        await message.reply_to_message.delete()
+    except:
+        pass
+    await message.delete()
 
 
 # Warns
