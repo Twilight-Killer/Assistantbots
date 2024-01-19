@@ -163,6 +163,11 @@ __**New Global Banned**__
         await message.reply_text(
             "User Gbanned, But This Gban Action Wasn't Logged, Add Me In GBAN_LOG_GROUP"
         )
+    try:
+        await message.reply_to_message.delete()
+        await message.delete()
+    except:
+        pass
 
 
 # Ungban
@@ -182,7 +187,11 @@ async def unban_globally(_, message):
     else:
         await remove_gban_user(user.id)
         await message.reply_text(f"Lifted {user.mention}'s Global Banned.'")
-
+    try:
+        await message.reply_to_message.delete()
+        await message.delete()
+    except:
+        pass
 
 # Broadcast
 
