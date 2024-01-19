@@ -23,7 +23,7 @@ SOFTWARE.
 """
 from wbb.utils.http import post
 
-BASE = "https://nekobin.com/me"
+BASE = "https://batbin.me/"
 
 
 async def paste(content: str):
