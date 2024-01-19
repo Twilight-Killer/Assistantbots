@@ -228,9 +228,11 @@ async def kickFunc(_, message: Message):
     replied_message = message.reply_to_message
     if replied_message:
         message = replied_message
+        await message.delete()
     await message.reply_text(msg)
     await asyncio.sleep(1)
     await message.chat.unban_member(user_id)
+    await message.delete()
 
 
 # Ban members
@@ -295,7 +297,9 @@ async def banFunc(_, message: Message):
     replied_message = message.reply_to_message
     if replied_message:
         message = replied_message
+        await message.delete()
     await message.reply_text(msg)
+    await message.delete()
 
 
 # Unban members
@@ -326,7 +330,9 @@ async def unban_func(_, message: Message):
     replied_message = message.reply_to_message
     if replied_message:
         message = replied_message
+        await message.delete()
     await message.reply_text(f"Fine, {umention} they can join again.")
+    await message.delete()
 
 
 # Ban users listed in a message
@@ -625,7 +631,9 @@ async def mute(_, message: Message):
     replied_message = message.reply_to_message
     if replied_message:
         message = replied_message
+        await message.delete()
     await message.reply_text(msg, reply_markup=keyboard)
+    await message.delete()
 
 
 # Unmute members
@@ -642,7 +650,9 @@ async def unmute(_, message: Message):
     replied_message = message.reply_to_message
     if replied_message:
         message = replied_message
+        await message.delete()
     await message.reply_text(f"Fine, {umention} can speak again.")
+    await message.delete()
 
 
 # Ban deleted accounts
@@ -718,8 +728,10 @@ async def warn_user(_, message: Message):
         replied_message = message.reply_to_message
         if replied_message:
             message = replied_message
+            await message.delete()
         await message.reply_text(msg, reply_markup=keyboard)
         await add_warn(chat_id, await int_to_alpha(user_id), warn)
+        await message.delete()
 
 
 @app.on_callback_query(filters.regex("unwarn_"))
