@@ -712,7 +712,7 @@ async def warn_user(_, message: Message):
         warn = {"warns": warns + 1}
         msg = f"""
 **Warned User:** {mention}
-**Warned By:** {message.from_user.mention if message.from_user else 'Anon'}
+**Admin By:** {message.from_user.mention if message.from_user else 'Anon'}
 **Reason:** {reason or 'No Reason Provided.'}
 **Warns:** {warns + 1}/3"""
         replied_message = message.reply_to_message
