@@ -226,13 +226,16 @@ async def kickFunc(_, message: Message):
         await message.reply_to_message.delete()
     await message.chat.ban_member(user_id)
     replied_message = message.reply_to_message
-    if replied_message:
-        message = replied_message
-        await message.delete()
+    #if replied_message:
+    #    message = replied_message
     await message.reply_text(msg)
     await asyncio.sleep(1)
     await message.chat.unban_member(user_id)
-    await message.delete()
+    try:
+        await message.reply_to_message.delete()
+        await message.delete()
+    except:
+        pass
 
 
 # Ban members
@@ -295,11 +298,14 @@ async def banFunc(_, message: Message):
         msg += f"**Reason:** {reason}"
     await message.chat.ban_member(user_id)
     replied_message = message.reply_to_message
-    if replied_message:
-        message = replied_message
-        await message.delete()
+    #if replied_message:
+    #    message = replied_message
     await message.reply_text(msg)
-    await message.delete()
+    try:
+        await message.reply_to_message.delete()
+        await message.delete()
+    except:
+        pass
 
 
 # Unban members
@@ -328,11 +334,14 @@ async def unban_func(_, message: Message):
     await message.chat.unban_member(user)
     umention = (await app.get_users(user)).mention
     replied_message = message.reply_to_message
-    if replied_message:
-        message = replied_message
-        await message.delete()
+    #if replied_message:
+    #    message = replied_message
     await message.reply_text(f"Fine, {umention} they can join again.")
-    await message.delete()
+    try:
+        await message.reply_to_message.delete()
+        await message.delete()
+    except:
+        pass
 
 
 # Ban users listed in a message
@@ -629,11 +638,14 @@ async def mute(_, message: Message):
         msg += f"**Reason:** {reason}"
     await message.chat.restrict_member(user_id, permissions=ChatPermissions())
     replied_message = message.reply_to_message
-    if replied_message:
-        message = replied_message
-        await message.delete()
+    #if replied_message:
+    #    message = replied_message
     await message.reply_text(msg, reply_markup=keyboard)
-    await message.delete()
+    try:
+        await message.reply_to_message.delete()
+        await message.delete()
+    except:
+        pass
 
 
 # Unmute members
@@ -648,11 +660,14 @@ async def unmute(_, message: Message):
     await message.chat.unban_member(user_id)
     umention = (await app.get_users(user_id)).mention
     replied_message = message.reply_to_message
-    if replied_message:
-        message = replied_message
-        await message.delete()
+    #if replied_message:
+    #    message = replied_message
     await message.reply_text(f"Fine, {umention} can speak again.")
-    await message.delete()
+    try:
+        await message.reply_to_message.delete()
+        await message.delete()
+    except:
+        pass
 
 
 # Ban deleted accounts
@@ -726,12 +741,15 @@ async def warn_user(_, message: Message):
 **Reason:** {reason or 'No Reason Provided.'}
 **Warns:** {warns + 1}/3"""
         replied_message = message.reply_to_message
-        if replied_message:
-            message = replied_message
-            await message.delete()
+        #if replied_message:
+        #    message = replied_message
         await message.reply_text(msg, reply_markup=keyboard)
         await add_warn(chat_id, await int_to_alpha(user_id), warn)
-        await message.delete()
+        try:
+            await message.reply_to_message.delete()
+            await message.delete()
+        except:
+            pass
 
 
 @app.on_callback_query(filters.regex("unwarn_"))
