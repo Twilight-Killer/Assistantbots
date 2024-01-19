@@ -105,7 +105,7 @@ async def ban_globally(_, message):
     from_user = message.from_user
 
     if not user_id:
-        return await message.reply_text("I can't find that user.")
+        return await message.reply_text("I don't know who you're talking about, you're going to need to specify a user...!")
     if not reason:
         return await message.reply("No reason provided.")
 
@@ -114,7 +114,7 @@ async def ban_globally(_, message):
 
     served_chats = await get_served_chats()
     m = await message.reply_text(
-        f"**Banning {user.mention} Globally!**"
+        f"**{user.mention} Global Banned!**"
         + f" **This Action Should Take About {len(served_chats)} Seconds.**"
     )
     await add_gban_user(user_id)
@@ -140,10 +140,10 @@ async def ban_globally(_, message):
         )
     except Exception:
         pass
-    await m.edit(f"Banned {user.mention} Globally!")
+    await m.edit(f"{user.mention} Global Banned!")
     ban_text = f"""
-__**New Global Ban**__
-**Origin:** {message.chat.title} [`{message.chat.id}`]
+__**New Global Banned**__
+**Group:** {message.chat.title} [`{message.chat.id}`]
 **Admin:** {from_user.mention}
 **Banned User:** {user.mention}
 **Banned User ID:** `{user_id}`
@@ -181,7 +181,7 @@ async def unban_globally(_, message):
         await message.reply_text("I don't remember Gbanning him.")
     else:
         await remove_gban_user(user.id)
-        await message.reply_text(f"Lifted {user.mention}'s Global Ban.'")
+        await message.reply_text(f"Lifted {user.mention}'s Global Banned.'")
 
 
 # Broadcast
