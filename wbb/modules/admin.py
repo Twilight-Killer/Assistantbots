@@ -732,8 +732,6 @@ async def warn_user(_, message: Message):
         await message.reply_text(
             f"Number of warns of {mention} exceeded, BANNED!"
         )
-        await message.reply_to_message.delete()
-        await message.delete()
         await remove_warns(chat_id, await int_to_alpha(user_id))
     else:
         warn = {"warns": warns + 1}
@@ -747,11 +745,11 @@ async def warn_user(_, message: Message):
         #    message = replied_message
         await message.reply_text(msg, reply_markup=keyboard)
         await add_warn(chat_id, await int_to_alpha(user_id), warn)
-        try:
-            await message.reply_to_message.delete()
-        except:
-            pass
-        await message.delete()
+    try:
+        await message.reply_to_message.delete()
+    except:
+        pass
+    await message.delete()
 
 
 @app.on_callback_query(filters.regex("unwarn_"))
