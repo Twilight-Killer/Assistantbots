@@ -206,7 +206,7 @@ async def purgeFunc(_, message: Message):
 async def kickFunc(_, message: Message):
     user_id, reason = await extract_user_and_reason(message)
     if not user_id:
-        return await message.reply_text("I can't find that user.")
+        return await message.reply_text("I don't know who you're talking about, you're going to need to specify a user...!")
     if user_id == BOT_ID:
         return await message.reply_text(
             "I can't kick myself, i can leave if you want."
@@ -242,7 +242,7 @@ async def banFunc(_, message: Message):
     user_id, reason = await extract_user_and_reason(message, sender_chat=True)
 
     if not user_id:
-        return await message.reply_text("I can't find that user.")
+        return await message.reply_text("I don't know who you're talking about, you're going to need to specify a user...!")
     if user_id == BOT_ID:
         return await message.reply_text(
             "I can't ban myself, i can leave if you want."
@@ -326,7 +326,7 @@ async def unban_func(_, message: Message):
     replied_message = message.reply_to_message
     if replied_message:
         message = replied_message
-    await message.reply_text(f"Unbanned! {umention}")
+    await message.reply_text(f"Fine, {umention} they can join again.")
 
 
 # Ban users listed in a message
@@ -578,7 +578,7 @@ async def pin(_, message: Message):
 async def mute(_, message: Message):
     user_id, reason = await extract_user_and_reason(message)
     if not user_id:
-        return await message.reply_text("I can't find that user.")
+        return await message.reply_text("I don't know who you're talking about, you're going to need to specify a user...!")
     if user_id == BOT_ID:
         return await message.reply_text("I can't mute myself.")
     if user_id in SUDOERS:
@@ -590,7 +590,7 @@ async def mute(_, message: Message):
             "I can't mute an admin, You know the rules, so do i."
         )
     mention = (await app.get_users(user_id)).mention
-    keyboard = ikb({"⚠️ Unmute ⚠️": f"unmute_{user_id}"})
+    keyboard = ikb({"Unmute (admin only)": f"unmute_{user_id}"})
     msg = (
         f"**Muted User:** {mention}\n"
         f"**Muted By:** {message.from_user.mention if message.from_user else 'Anon'}\n"
@@ -636,13 +636,13 @@ async def mute(_, message: Message):
 async def unmute(_, message: Message):
     user_id = await extract_user(message)
     if not user_id:
-        return await message.reply_text("I can't find that user.")
+        return await message.reply_text("I don't know who you're talking about, you're going to need to specify a user...!")
     await message.chat.unban_member(user_id)
     umention = (await app.get_users(user_id)).mention
     replied_message = message.reply_to_message
     if replied_message:
         message = replied_message
-    await message.reply_text(f"Unmuted! {umention}")
+    await message.reply_text(f"Fine, {umention} can speak again.")
 
 
 # Ban deleted accounts
@@ -677,7 +677,7 @@ async def warn_user(_, message: Message):
     user_id, reason = await extract_user_and_reason(message)
     chat_id = message.chat.id
     if not user_id:
-        return await message.reply_text("I can't find that user.")
+        return await message.reply_text("I don't know who you're talking about, you're going to need to specify a user...!")
     if user_id == BOT_ID:
         return await message.reply_text(
             "I can't warn myself, i can leave if you want."
@@ -695,7 +695,7 @@ async def warn_user(_, message: Message):
         get_warn(chat_id, await int_to_alpha(user_id)),
     )
     mention = user.mention
-    keyboard = ikb({"⚠️ Remove Warn ⚠️": f"unwarn_{user_id}"})
+    keyboard = ikb({"Remove Warn (admin only)": f"unwarn_{user_id}"})
     if warns:
         warns = warns["warns"]
     else:
@@ -765,7 +765,7 @@ async def remove_warnings(_, message: Message):
     if warns:
         warns = warns["warns"]
     if warns == 0 or not warns:
-        await message.reply_text(f"{mention} have no warnings.")
+        await message.reply_text(f"User {mention} have no warnings!")
     else:
         await remove_warns(chat_id, await int_to_alpha(user_id))
         await message.reply_text(f"Removed warnings of {mention}.")
@@ -785,8 +785,8 @@ async def check_warns(_, message: Message):
     if warns:
         warns = warns["warns"]
     else:
-        return await message.reply_text(f"{mention} has no warnings.")
-    return await message.reply_text(f"{mention} has {warns}/3 warnings.")
+        return await message.reply_text(f"User {mention} has no warnings!")
+    return await message.reply_text(f"User {mention} has {warns}/3 warnings.")
 
 
 # Report
@@ -834,7 +834,7 @@ async def report_user(_, message):
     user_mention = (
         reply.from_user.mention if reply.from_user else reply.sender_chat.title
     )
-    text = f"Reported {user_mention} to admins!"
+    text = f"Reported {user_mention} to admins."
     admin_data = [
         i
         async for i in app.get_chat_members(
